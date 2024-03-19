@@ -34,12 +34,16 @@ html, body {
 .container__description {
     background-color: #283e50;
     color: #ffffff;
+    padding: 0;
+    margin: 0;
 }
 
 .container__h1 {
-  font-family: 'Lobster', sans-serif;
+  font-family: 'Lobster', cursive;
+  font-size: 35px;
+  font-weight: 400;
   text-align: center;
-  padding: 20px;
+  padding: 15px;
 }
 
 .container__title {

@@ -1,35 +1,54 @@
 * {
     padding: 0;
-    margin: 0;
+    margin: 0;  
 }
 
-html {
+html, body {
+    height: 100%;
+}
+
+.backround {
     background-image: linear-gradient(to bottom, #615dad, #ffc8da);
     background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     height: 100%;
 }
 
 .container {
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
+    max-width: 400px;
+    height: 100vh;
 }
 
 .container__img {
-width: 500px;
+    width: 100%;
 }
 
 .container__description {
-
+    background-color: #283e50;
+    color: #ffffff;
 }
 
 .container__h1 {
   font-family: 'Lobster', sans-serif;
+  text-align: center;
 }
 
-
 .container__title {
-
+    text-align: center;
 }
 
 .container__buttons {
-
+    background-color: #283e50;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

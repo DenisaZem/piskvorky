@@ -62,7 +62,7 @@ html, body {
     align-items: center;
 }
 
-.buttons_rules, .buttons_startGame {
+.button--rules, .button--startGame {
     width: 100%;
     height: 50px;
     cursor: pointer;
@@ -75,14 +75,14 @@ html, body {
     align-items: center;
 }
 
-.buttons_startGame {
+.button--startGame {
     background-color: #0197f6;
 }
 
-.buttons_rules:hover {
+.button--rules:hover {
     background-color: #1cbb96;
 }
 
-.buttons_startGame:hover {
+.button--startGame:hover {
     background-color: #0090e9;
 }

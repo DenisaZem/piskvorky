@@ -41,24 +41,53 @@ html, body {
     justify-content:space-around;
     align-items: center; 
     width: 100%;
-
 }
 
 .buttons-section__title {
     display: flex;
     justify-content:space-evenly;
     align-items: center; 
-    width: 30%;
-
+    width: 35%;
 }
 
 .buttons-section__icons {
     display: flex;
     justify-content:space-evenly;
     align-items: center; 
-    width: 30%;
-
+    width: 35%;
 }
+
+.buttons-section__icons--home,
+.buttons-section__icons--restart {
+    display: flex;
+    justify-content:center;
+    align-items: center; 
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background-color: #1fcca4;
+}
+
+.buttons-section__icons--restart {
+    background-color: #0197f6
+}
+
+.buttons-section__icons--home img,
+.buttons-section__icons--restart img {
+    width: 25px;
+}
+
+.buttons-section__icons--home:hover {
+    background-color: #1cbb96;
+}
+
+.buttons-section__icons--restart:hover {
+    background-color: #0090e9;
+}
+
+
+
 
 .playground {
 

@@ -19,21 +19,15 @@ SelectSquare.forEach((item) => {
 });
 
 // Prevent game restart
-document
-  .querySelector(".buttons-section__icons--restart")
-  .addEventListener("click", (event) => {
-    const confirmation = confirm("Jste si jisti, že chcete restartovat hru?");
-    if (confirmation === false) {
-      event.preventDefault();
+const confirmAction = (message) => confirm(message);
+
+document.querySelector(".buttons-section__icons--restart").addEventListener("click", (event) => {
+    if (!confirmAction("Jste si jisti, že chcete restartovat hru?")) {
+        event.preventDefault();
     }
-  });
-document
-  .querySelector(".buttons-section__icons--home")
-  .addEventListener("click", (event) => {
-    const confirmation = confirm(
-      "Jste si jisti, že chcete ukončit hru a přejít na hlavní stránku?"
-    );
-    if (confirmation === false) {
-      event.preventDefault();
+});
+document.querySelector(".buttons-section__icons--home").addEventListener("click", (event) => {
+    if (!confirmAction("Jste si jisti, že chcete ukončit hru a přejít na hlavní stránku?")) {
+        event.preventDefault();
     }
-  });
+});

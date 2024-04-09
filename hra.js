@@ -1,5 +1,6 @@
 const HandleClick =(event)=>{
-    event.target.classList.add("board__field--circle")
+    let player = "circle"
+    event.target.classList.add(`board__field--${player}`)
 }
 
 const SelectSquare = document.querySelectorAll(".square")

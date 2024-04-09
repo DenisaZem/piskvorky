@@ -134,3 +134,9 @@ html, body {
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.board__field--cross {
+    background-image: url("/piskvorky/pictures/cross.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}

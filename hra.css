@@ -125,6 +125,12 @@ html, body {
     background-color: #ebdee283;
 }
 
-.square:focus {
+/* .square:focus {
     background-color: salmon;
+} */
+
+.board__field--circle {
+    background-image: url("/piskvorky/pictures/circle.svg");
+    background-repeat: no-repeat;
+    background-position: center;
 }

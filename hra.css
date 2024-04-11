@@ -54,6 +54,10 @@ html, body {
     width: 95%;
 }
 
+/* .imgCurrentPlayer {
+    filter: invert(100%);
+} */
+
 .buttons-section__title {
     display: flex;
     justify-content:flex-start;
@@ -119,24 +123,32 @@ html, body {
     aspect-ratio: 1 / 1;
     border: 1px solid #000000;
     background-color: #f7dce54e;
+    
 }
 
 .square:hover {
     background-color: #ebdee283;
 }
 
-/* .square:focus {
-    background-color: salmon;
-} */
-
-.board__field--circle {
+.board__field--circle,
+.board__field--cross {
     background-image: url("/piskvorky/pictures/circle.svg");
     background-repeat: no-repeat;
     background-position: center;
+    animation: anime 0.15s linear;
+    
 }
 
 .board__field--cross {
     background-image: url("/piskvorky/pictures/cross.svg");
-    background-repeat: no-repeat;
-    background-position: center;
 }
+
+/* animace */
+@keyframes anime {
+    0% {
+      transform: scale(0.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }

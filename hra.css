@@ -145,10 +145,11 @@ html, body {
 
 /* animace */
 @keyframes anime {
-    0% {
-      transform: scale(0.5);
+    from {
+        background-size: 30%;
+      }
+    
+      to {
+        background-size: 57%;
+      }
     }
-    100% {
-      transform: scale(1);
-    }
-  }

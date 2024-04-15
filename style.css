@@ -11,6 +11,7 @@ html, body {
 .backround {
     background-image: linear-gradient(to bottom, #615dad, #ffc8da);
     background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;

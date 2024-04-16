@@ -1,4 +1,7 @@
+import { findWinner } from 'https://unpkg.com/piskvorky@0.1.4';
+
 let currentPlayer = "playerCircle";
+
 const HandleClick = (event) => {
   const imgCurrentPlayer = document.querySelector(".imgCurrentPlayer");
   if (currentPlayer === "playerCircle") {
@@ -10,7 +13,20 @@ const HandleClick = (event) => {
     imgCurrentPlayer.src = "/piskvorky/pictures/circle.svg";
     currentPlayer = "playerCircle";
   }
+
+  // Check for winner after each move
+  const squares = document.querySelectorAll(".square");
+  const playingField = Array.from(squares).map((square) => {
+    if (square.classList.contains("board__field--circle")) {
+      return "o";
+    } else if (square.classList.contains("board__field--cross")) {
+      return "x";
+    } else {
+      return "_";
+    }
+  });
 };
+
 const SelectSquare = document.querySelectorAll(".square");
 SelectSquare.forEach((item) => {
   item.addEventListener("click", HandleClick);
@@ -34,6 +50,7 @@ document
       event.preventDefault();
     }
   });
+
 document
   .querySelector(".buttons-section__icons--home")
   .addEventListener("click", (event) => {

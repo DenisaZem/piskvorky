@@ -25,6 +25,19 @@ const HandleClick = (event) => {
       return "_";
     }
   });
+
+  const winner = findWinner(playingField);
+  if (winner === "o" || winner === "x") {
+    setTimeout(() => {
+      alert(`Vyhrál hráč se symbolem ${winner}.`);
+      location.reload();
+    }, 250);
+  } else if (winner === "tie") {
+    setTimeout(() => {
+      alert("Hra skončila nerozhodně.");
+      location.reload();
+    }, 250); 
+  }
 };
 
 const SelectSquare = document.querySelectorAll(".square");

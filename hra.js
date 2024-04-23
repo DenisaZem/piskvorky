@@ -1,67 +1,10 @@
-import { findWinner } from 'https://unpkg.com/piskvorky@0.1.4';
+import { findWinner } from "https://unpkg.com/piskvorky@0.1.4";
 
 let currentPlayer = "playerCircle";
 
-      // AI API call
-      const makeMove = async () => {
-        const squares = document.querySelectorAll(".square");
-        const playingField = Array.from(squares).map((square) => {
-          if (square.classList.contains("board__field--circle")) {
-            return "o";
-          } else if (square.classList.contains("board__field--cross")) {
-            return "x";
-          } else {
-            return "_";
-          }
-        });
-      
-        const response = await fetch("https://piskvorky.czechitas-podklady.cz/api/suggest-next-move", {
-          method: 'POST',
-          headers: {
-            'Content-type': 'application/json',
-          },
-          body: JSON.stringify({
-            board: playingField,
-            player: 'x', 
-          })
-        });
-        const data = await response.json();
-        const { x, y } = data.position;
-        const fieldIndex = x + y * 10;
-        const field = squares[fieldIndex];
-        field.click();
-      };
-
-// Function to handle user clicks
-const HandleClick = async (event) => {
-  const imgCurrentPlayer = document.querySelector(".imgCurrentPlayer");
-  if (currentPlayer === "playerCircle") {
-    event.target.classList.add(`board__field--circle`);
-    imgCurrentPlayer.src = "/piskvorky/pictures/cross.svg";
-    makeMove();
-    console.log("Křížek na tahu")
-    currentPlayer = "playerCross";
-  } else {
-    event.target.classList.add(`board__field--cross`);
-    imgCurrentPlayer.src = "/piskvorky/pictures/circle.svg";
-    currentPlayer = "playerCircle";
-  }
-
-
-
-  // Check for winner after each move
-  // const squares = document.querySelectorAll(".square");
-  // const playingField = Array.from(squares).map((square) => {
-  //   if (square.classList.contains("board__field--circle")) {
-  //     return "o";
-  //   } else if (square.classList.contains("board__field--cross")) {
-  //     return "x";
-  //   } else {
-  //     return "_";
-  //   }
-  // });
-
-
+// AI API call
+const makeMove = async () => {
+  const squares = document.querySelectorAll(".square");
   const playingField = Array.from(squares).map((square) => {
     if (square.classList.contains("board__field--circle")) {
       return "o";
@@ -70,8 +13,43 @@ const HandleClick = async (event) => {
     } else {
       return "_";
     }
-  })
-  
+  });
+
+  const response = await fetch(
+    "https://piskvorky.czechitas-podklady.cz/api/suggest-next-move",
+    {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        board: playingField,
+        player: "x",
+      }),
+    }
+  );
+  const data = await response.json();
+  const { x, y } = data.position;
+  const fieldIndex = x + y * 10;
+  const field = squares[fieldIndex];
+  field.click();
+};
+
+// Function to handle user clicks
+const HandleClick = async (event) => {
+  const imgCurrentPlayer = document.querySelector(".imgCurrentPlayer");
+  if (currentPlayer === "playerCircle") {
+    event.target.classList.add(`board__field--circle`);
+    imgCurrentPlayer.src = "/piskvorky/pictures/cross.svg";
+    makeMove();
+    currentPlayer = "playerCross";
+  } else {
+    event.target.classList.add(`board__field--cross`);
+    imgCurrentPlayer.src = "/piskvorky/pictures/circle.svg";
+    currentPlayer = "playerCircle";
+  }
+
+  const playingField = Array.from(squares);
   const winner = findWinner(playingField);
   if (winner === "o" || winner === "x") {
     setTimeout(() => {
@@ -84,8 +62,6 @@ const HandleClick = async (event) => {
       location.reload();
     }, 250);
   }
-
-  
 };
 
 const SelectSquare = document.querySelectorAll(".square");
@@ -117,7 +93,9 @@ document
   .addEventListener("click", (event) => {
     if (
       !confirmAction(
-        "Jste si jisti, že chcete ukončit hru a přejít na hlavní stránku?")) {
+        "Jste si jisti, že chcete ukončit hru a přejít na hlavní stránku?"
+      )
+    ) {
       event.preventDefault();
     }
   });

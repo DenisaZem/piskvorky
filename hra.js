@@ -2,37 +2,35 @@ import { findWinner } from 'https://unpkg.com/piskvorky@0.1.4';
 
 let currentPlayer = "playerCircle";
 
-// Check for winner after each move
-const makeMove = async () => {
-  const squares = document.querySelectorAll(".square");
-  const playingField = Array.from(squares).map((square) => {
-    if (square.classList.contains("board__field--circle")) {
-      return "o";
-    } else if (square.classList.contains("board__field--cross")) {
-      return "x";
-    } else {
-      return "_";
-    }
-  });
-
-  // AI API call
-  const response = await fetch("https://piskvorky.czechitas-podklady.cz/api/suggest-next-move", {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify({
-      board: playingField,
-      player: 'x', 
-    })
-  });
-
-  const data = await response.json();
-  const { x, y } = data.position;
-  const fieldIndex = x + y * 10;
-  const field = squares[fieldIndex];
-  field.click();
-};
+      // AI API call
+      const makeMove = async () => {
+        const squares = document.querySelectorAll(".square");
+        const playingField = Array.from(squares).map((square) => {
+          if (square.classList.contains("board__field--circle")) {
+            return "o";
+          } else if (square.classList.contains("board__field--cross")) {
+            return "x";
+          } else {
+            return "_";
+          }
+        });
+      
+        const response = await fetch("https://piskvorky.czechitas-podklady.cz/api/suggest-next-move", {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            board: playingField,
+            player: 'x', 
+          })
+        });
+        const data = await response.json();
+        const { x, y } = data.position;
+        const fieldIndex = x + y * 10;
+        const field = squares[fieldIndex];
+        field.click();
+      };
 
 // Function to handle user clicks
 const HandleClick = async (event) => {
@@ -40,6 +38,8 @@ const HandleClick = async (event) => {
   if (currentPlayer === "playerCircle") {
     event.target.classList.add(`board__field--circle`);
     imgCurrentPlayer.src = "/piskvorky/pictures/cross.svg";
+    makeMove();
+    console.log("Křížek na tahu")
     currentPlayer = "playerCross";
   } else {
     event.target.classList.add(`board__field--cross`);
@@ -47,8 +47,21 @@ const HandleClick = async (event) => {
     currentPlayer = "playerCircle";
   }
 
+
+
   // Check for winner after each move
-  const squares = document.querySelectorAll(".square");
+  // const squares = document.querySelectorAll(".square");
+  // const playingField = Array.from(squares).map((square) => {
+  //   if (square.classList.contains("board__field--circle")) {
+  //     return "o";
+  //   } else if (square.classList.contains("board__field--cross")) {
+  //     return "x";
+  //   } else {
+  //     return "_";
+  //   }
+  // });
+
+
   const playingField = Array.from(squares).map((square) => {
     if (square.classList.contains("board__field--circle")) {
       return "o";
@@ -57,8 +70,8 @@ const HandleClick = async (event) => {
     } else {
       return "_";
     }
-  });
-
+  })
+  
   const winner = findWinner(playingField);
   if (winner === "o" || winner === "x") {
     setTimeout(() => {
@@ -72,7 +85,7 @@ const HandleClick = async (event) => {
     }, 250);
   }
 
-  await makeMove();
+  
 };
 
 const SelectSquare = document.querySelectorAll(".square");

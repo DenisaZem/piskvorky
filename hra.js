@@ -2,7 +2,40 @@ import { findWinner } from 'https://unpkg.com/piskvorky@0.1.4';
 
 let currentPlayer = "playerCircle";
 
-const HandleClick = (event) => {
+// Check for winner after each move
+const makeMove = async () => {
+  const squares = document.querySelectorAll(".square");
+  const playingField = Array.from(squares).map((square) => {
+    if (square.classList.contains("board__field--circle")) {
+      return "o";
+    } else if (square.classList.contains("board__field--cross")) {
+      return "x";
+    } else {
+      return "_";
+    }
+  });
+
+  // AI API call
+  const response = await fetch("https://piskvorky.czechitas-podklady.cz/api/suggest-next-move", {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      board: playingField,
+      player: 'x', 
+    })
+  });
+
+  const data = await response.json();
+  const { x, y } = data.position;
+  const fieldIndex = x + y * 10;
+  const field = squares[fieldIndex];
+  field.click();
+};
+
+// Function to handle user clicks
+const HandleClick = async (event) => {
   const imgCurrentPlayer = document.querySelector(".imgCurrentPlayer");
   if (currentPlayer === "playerCircle") {
     event.target.classList.add(`board__field--circle`);
@@ -26,23 +59,6 @@ const HandleClick = (event) => {
     }
   });
 
-    // AI API call:
-const response = await fetch("https://piskvorky.czechitas-podklady.cz/api/suggest-next-move", {
-  method: 'POST',
-	headers: {
-		'Content-type': 'application/json',
-	},
-  body: JSON.stringify({
-    board: playingField,
-    player: 'x',
-  })
-})
-const data = await response.json()
-const { x, y } = data.position 
-const field = squares[x + y * 10] 
-field.click()
-
-
   const winner = findWinner(playingField);
   if (winner === "o" || winner === "x") {
     setTimeout(() => {
@@ -53,8 +69,10 @@ field.click()
     setTimeout(() => {
       alert("Hra skončila nerozhodně.");
       location.reload();
-    }, 250); 
+    }, 250);
   }
+
+  await makeMove();
 };
 
 const SelectSquare = document.querySelectorAll(".square");

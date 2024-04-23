@@ -26,6 +26,23 @@ const HandleClick = (event) => {
     }
   });
 
+    // AI API call:
+const response = await fetch("https://piskvorky.czechitas-podklady.cz/api/suggest-next-move", {
+  method: 'POST',
+	headers: {
+		'Content-type': 'application/json',
+	},
+  body: JSON.stringify({
+    board: playingField,
+    player: 'x',
+  })
+})
+const data = await response.json()
+const { x, y } = data.position 
+const field = squares[x + y * 10] 
+field.click()
+
+
   const winner = findWinner(playingField);
   if (winner === "o" || winner === "x") {
     setTimeout(() => {
@@ -69,9 +86,7 @@ document
   .addEventListener("click", (event) => {
     if (
       !confirmAction(
-        "Jste si jisti, že chcete ukončit hru a přejít na hlavní stránku?"
-      )
-    ) {
+        "Jste si jisti, že chcete ukončit hru a přejít na hlavní stránku?")) {
       event.preventDefault();
     }
   });

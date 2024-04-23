@@ -49,7 +49,15 @@ const HandleClick = async (event) => {
     currentPlayer = "playerCircle";
   }
 
-  const playingField = Array.from(squares);
+  const playingField = Array.from(squares).map((square) => {
+    if (square.classList.contains("board__field--circle")) {
+      return "o";
+    } else if (square.classList.contains("board__field--cross")) {
+      return "x";
+    } else {
+      return "_";
+    }
+  })
   const winner = findWinner(playingField);
   if (winner === "o" || winner === "x") {
     setTimeout(() => {
